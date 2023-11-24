@@ -12,7 +12,8 @@ class MeusAgendamentosUI:
     datainicial = st.text_input("Informe a data inicial no formato *dd/mm/aaaa*")
     datafinal = st.text_input("Informe a data final no formato *dd/mm/aaaa*")
 
-    agendas = View.periodo_informado(datainicial, datafinal, st.session_state["cliente_id"])
+    if datainicial != '' and datafinal != '':
+      agendas = View.periodo_informado(datainicial, datafinal, st.session_state["cliente_id"])
 
     if st.button("Visualizar"):
 

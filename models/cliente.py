@@ -78,7 +78,7 @@ class NCliente:
     cls.__clientes = []
   
     try:
-      with open("Agenda/ListaPoo10B/models/clientes.json", mode="r") as arquivo:
+      with open("models/clientes.json", mode="r") as arquivo:
         clientes_json = json.load(arquivo)
         for obj in clientes_json:
           aux = Cliente(obj["_Cliente__id"], 
@@ -92,5 +92,5 @@ class NCliente:
 
   @classmethod
   def salvar(cls):
-    with open("Agenda/ListaPoo10B/models/clientes.json", mode="w") as arquivo:
+    with open("models/clientes.json", mode="w") as arquivo:
       json.dump(cls.__clientes, arquivo, default=vars)

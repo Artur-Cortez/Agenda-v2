@@ -97,7 +97,7 @@ class NAgenda:
   def abrir(cls):
     cls.__agendas = []
     try:
-      with open("Agenda/ListaPoo10B/models/agendas.json", mode="r") as arquivo:
+      with open("models/agendas.json", mode="r") as arquivo:
         agendas_json = json.load(arquivo)
         for obj in agendas_json:
           aux = Agenda(
@@ -110,5 +110,5 @@ class NAgenda:
 
   @classmethod
   def salvar(cls):
-    with open("Agenda/ListaPoo10B/models/agendas.json", mode="w") as arquivo:
+    with open("models/agendas.json", mode="w") as arquivo:
       json.dump(cls.__agendas, arquivo, default=Agenda.to_json, indent=4)

@@ -7,7 +7,9 @@ class EditarPerfilUI:
     EditarPerfilUI.editar()
 
   def editar():
-      nome = st.text_input("Informe o novo nome", st.session_state["cliente_nome"])
+      if st.session_state["cliente_nome"] != 'admin':
+        nome = st.text_input("Informe o novo nome", st.session_state["cliente_nome"])
+      else: nome = "admin"
       email = st.text_input("Informe o novo e-mail", st.session_state["cliente_email"])
       fone = st.text_input("Informe o novo fone", st.session_state["cliente_fone"])
       senha = st.text_input("Informe a nova senha", st.session_state["cliente_senha"], type="password")

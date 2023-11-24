@@ -134,8 +134,8 @@ class View:
     return r
 
   def periodo_informado(datainicial, datafinal, idcliente):
-    datainicial = datetime.strptime(f"{datainicial}", "%d/%m/%Y")
-    datafinal = datetime.strptime(f"{datafinal}", "%d/%m/%Y")
+    datainicial = datetime.datetime.strptime(f"{datainicial}", "%d/%m/%Y")
+    datafinal = datetime.datetime.strptime(f"{datafinal}", "%d/%m/%Y")
     
     periodo = []
     
@@ -156,7 +156,7 @@ class View:
 
   def agenda_listarhoje():
     r = []
-    hoje = datetime.today()
+    hoje = datetime.datetime.today()
     for horario in View.agenda_listar():
       if horario.get_confirmado() == False and horario.get_data().date() == hoje.date() and horario.get_id_cliente() == 0 and horario.get_id_servico() == 0:
         r.append(horario)

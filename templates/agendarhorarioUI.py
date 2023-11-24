@@ -10,6 +10,7 @@ class AgendarHorarioUI:
         AgendarHorarioUI.marcar()
 
     def listar_semana():
+        View.agenda_auto_excluir()
         agendas = View.agenda_listarsemana()
         if len(agendas) == 0:
             st.write("Nenhum horário cadastrado no sistema")
@@ -18,11 +19,20 @@ class AgendarHorarioUI:
             for obj in agendas:
                 data = obj.get_data().strftime('%d/%m/%Y')
                 hora = obj.get_data().strftime('%H:%M')
-                servico = (View.servico_listar_id(obj.get_id_servico())).get_descricao()
+                id_servico = obj.get_id_servico()
+                if id_servico is not None:
+                    servico_obj = View.servico_listar_id(id_servico)
+                    if servico_obj is not None:
+                        servico = servico_obj.get_descricao()
+                    else:                        
+                        servico = "Vazio"
+                else:                   
+                    servico = "ID do serviço é nulo"
                 
                 dic1.append([data, hora, servico])
-                df1 = pd.DataFrame(dic1, columns=["Data", "Hora", "Desc. do serviço"])
-                st.dataframe(df1, hide_index=True)
+                
+            df1 = pd.DataFrame(dic1, columns=["Data", "Hora", "Desc. do serviço"])
+            st.dataframe(df1, hide_index=True)
 
     def marcar():    
         st.header("Reserve um horário para algo")

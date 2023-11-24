@@ -79,7 +79,7 @@ class NServico:
   def abrir(cls):
     cls.__servicos = []
     try:
-      with open("Agenda/ListaPoo10B/models/servicos.json", mode="r") as arquivo:
+      with open("models/servicos.json", mode="r") as arquivo:
         servicos_json = json.load(arquivo)
         for obj in servicos_json:
           aux = Servico(obj["_Servico__id"], obj["_Servico__descricao"], obj["_Servico__valor"], obj["_Servico__duracao"])
@@ -89,5 +89,5 @@ class NServico:
 
   @classmethod
   def salvar(cls):
-    with open("Agenda/ListaPoo10B/models/servicos.json", mode="w") as arquivo:
+    with open("models/servicos.json", mode="w") as arquivo:
       json.dump(cls.__servicos, arquivo, default=vars)
