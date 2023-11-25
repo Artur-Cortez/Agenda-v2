@@ -43,6 +43,7 @@ class NAgenda:
 
   @classmethod
   def inserir(cls, obj):
+
     cls.abrir()
     id = 0
     for aux in cls.__agendas:
@@ -61,9 +62,9 @@ class NAgenda:
     cls.abrir()
     nao_confirmados = []
     aux = datetime.datetime.now()
-    hoje = datetime.datetime(aux.year, aux.month, aux.day)
+    # hoje = datetime.datetime(aux.year, aux.month, aux.day)
     for aux in cls.__agendas:
-      if not aux.__confirmado and aux.__data > hoje:
+      if not aux.get_confirmado():
         nao_confirmados.append(aux)
     return nao_confirmados
 
@@ -97,7 +98,7 @@ class NAgenda:
   def abrir(cls):
     cls.__agendas = []
     try:
-      with open("models/agendas.json", mode="r") as arquivo:
+      with open("Agenda-v2/models/agendas.json", mode="r") as arquivo:
         agendas_json = json.load(arquivo)
         for obj in agendas_json:
           aux = Agenda(
@@ -110,5 +111,5 @@ class NAgenda:
 
   @classmethod
   def salvar(cls):
-    with open("models/agendas.json", mode="w") as arquivo:
+    with open("Agenda-v2/models/agendas.json", mode="w") as arquivo:
       json.dump(cls.__agendas, arquivo, default=Agenda.to_json, indent=4)

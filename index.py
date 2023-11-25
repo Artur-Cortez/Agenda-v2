@@ -61,7 +61,6 @@ class IndexUI:
   def main():
     View.cliente_admin()
     IndexUI.sidebar()
-    View.agenda_auto_excluir()
 
 IndexUI.main()
 

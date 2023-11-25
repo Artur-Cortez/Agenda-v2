@@ -1,7 +1,7 @@
 from models.cliente import Cliente, NCliente
 from models.servico import Servico, NServico
 from models.agenda import Agenda, NAgenda
-import datetime
+import datetime, time
 import streamlit as st
 
 class View:
@@ -93,13 +93,7 @@ class View:
     NAgenda.atualizar(Agenda(id, data, confirmado, id_cliente, id_servico))
 
   def agenda_excluir(id):
-    NAgenda.excluir(Agenda(id, "", "", 0, 0))
-
-  def agenda_auto_excluir():
-    horarios = View.agenda_listar()
-    for h in horarios:
-      if h.get_confirmado() == False and h.get_data() < datetime.datetime.now() and h.get_id_cliente == 0 and h.get_id_servico() == 0:
-        View.agenda_excluir(h.get_id())
+    NAgenda.excluir(Agenda(id, "", False, 0, 0)) 
 
   def agenda_abrir_agenda(data, hinicio, hfim, intervalo):
     data_inicio = datetime.datetime.strptime(f"{data} {hinicio}", "%d/%m/%Y %H:%M")
@@ -122,7 +116,9 @@ class View:
       aux = aux + delta
   
   def agenda_listar():
-    return NAgenda.listar()
+    horarios = NAgenda.listar()  
+    View.auto_excluir()
+    return horarios 
 
   def agenda_listarsemana():
     r = []
@@ -132,6 +128,15 @@ class View:
       if horario.get_confirmado() == False and horario.get_data().date() < hoje.date() + delta and horario.get_id_cliente() == 0 and horario.get_id_servico() == 0:
         r.append(horario)
     return r
+
+  def auto_excluir():
+    horarios = NAgenda.listar()
+    for h in horarios:
+      if h.get_confirmado() == False:
+          if h.get_data() < datetime.datetime.now() and h.get_id_cliente() == 0 and h.get_id_servico() == 0:
+            NAgenda.excluir(h)
+         
+
 
   def periodo_informado(datainicial, datafinal, idcliente):
     datainicial = datetime.datetime.strptime(f"{datainicial}", "%d/%m/%Y")

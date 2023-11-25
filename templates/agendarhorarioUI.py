@@ -10,7 +10,7 @@ class AgendarHorarioUI:
         AgendarHorarioUI.marcar()
 
     def listar_semana():
-        View.agenda_auto_excluir()
+        View.auto_excluir()
         agendas = View.agenda_listarsemana()
         if len(agendas) == 0:
             st.write("Nenhum horário cadastrado no sistema")
