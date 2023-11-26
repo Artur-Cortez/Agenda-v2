@@ -38,8 +38,8 @@
         "id": 10,
         "data": "27/11/2023 10:30",
         "confirmado": false,
-        "id_cliente": 0,
-        "id_servico": 0
+        "id_cliente": 2,
+        "id_servico": 1
     },
     {
         "id": 11,

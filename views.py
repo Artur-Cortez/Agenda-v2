@@ -135,20 +135,14 @@ class View:
       if h.get_confirmado() == False:
           if h.get_data() < datetime.datetime.now() and h.get_id_cliente() == 0 and h.get_id_servico() == 0:
             NAgenda.excluir(h)
-         
-
 
   def periodo_informado(datainicial, datafinal, idcliente):
-    datainicial = datetime.datetime.strptime(f"{datainicial}", "%d/%m/%Y")
-    datafinal = datetime.datetime.strptime(f"{datafinal}", "%d/%m/%Y")
-    
     periodo = []
-    
     for horario in View.agenda_listar():
         if horario.get_id_cliente() == idcliente:
-            if datainicial <= horario.get_data() <= datafinal:
+            horario_data = datetime.date(year=horario.get_data().year, month=horario.get_data().month, day=horario.get_data().day)
+            if datainicial <= horario_data <= datafinal:
                 periodo.append(horario)
-    
     return periodo
   
   def listar_naoconfirmados():
